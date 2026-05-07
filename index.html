@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Afrizal & Ayu Julita Wedding</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Amiri:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <style>
+    :root { --sakura: #FFB7C5; --sakura-dark: #FF69B4; --bg: #0A0A0A; --text: #fff; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; overflow: hidden; position: fixed; }
+    body { 
+      font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text);
+      background-image: radial-gradient(circle at 20% 80%, rgba(255,183,197,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,183,197,0.1) 0%, transparent 50%);
+    }
+
+    /* FRAME SAKURA KANAN KIRI - ROMANTIS */
+    .sakura-left, .sakura-right {
+      position: fixed; top: 0; width: 60px; height: 100%; z-index: 100; pointer-events: none;
+      background: linear-gradient(to bottom, transparent, rgba(255,183,197,0.15), transparent);
+    }
+    .sakura-left { left: 0; }
+    .sakura-right { right: 0; }
+    .sakura-left::before, .sakura-right::before {
+      content: '🌸\A💮\A🌸\A💮\A🌸\A💮\A🌸\A💮\A🌸\A💮'; 
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      font-size: 24px; line-height: 60px; color: var(--sakura); opacity: 0.6;
+      animation: jatuh 8s linear infinite;
+    }
+    @keyframes jatuh {
+      0% { transform: translateX(-50%) translateY(-100%); }
+      100% { transform: translateX(-50%) translateY(100vh); }
+    }
+
+    /* COVER */
+    .cover {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000;
+      background: var(--bg); display: flex; justify-content: center; align-items: center; flex-direction: column;
+      transition: opacity 1s, visibility 1s; padding: 0 70px;
+    }
+    .cover-img { 
+      position: absolute; width: calc(100% - 140px); height: 70%; 
+      object-fit: contain; border-radius: 20px; border: 3px solid var(--sakura);
+      box-shadow: 0 0 40px rgba(255,183,197,0.4);
+    }
+    .cover.hide { opacity: 0; visibility: hidden; }
+    .cover-content { position: relative; z-index: 3; text-align: center; margin-top: 55vh; }
+    .cover .subtitle { font-size: 12px; letter-spacing: 4px; margin-bottom: 10px; color: var(--sakura); }
+    .cover .title { font-family: 'Great Vibes', cursive; font-size: 48px; color: var(--sakura); margin: 10px 0; text-shadow: 0 0 20px rgba(255,183,197,0.5); }
+    .cover .date { font-size: 14px; letter-spacing: 2px; margin: 15px 0 25px 0; }
+    .btn-open {
+      padding: 12px 35px; background: linear-gradient(45deg, var(--sakura), var(--sakura-dark)); 
+      color: #fff; border: none; border-radius: 50px; font-weight: 600; font-size: 15px; cursor: pointer;
+      box-shadow: 0 5px 25px rgba(255,183,197,0.5); transition: 0.3s;
+    }
+    .btn-open:active { transform: scale(0.95); }
+    
+    /* MAIN */
+    .main { display: none; width: 100%; height: 100%; padding: 0 70px; }
+    .main.active { display: block; }
+    
+    .swiper { width: 100%; height: 100%; }
+    .swiper-slide {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; position: relative; perspective: 1000px;
+    }
+    
+    /* FOTO 3D MUTER KALO DISENGGOL */
+    .photo-3d {
+      width: 85%; height: 65%; position: relative; cursor: pointer;
+      transform-style: preserve-3d; transition: transform 0.8s;
+    }
+    .photo-3d.flipped { transform: rotateY(180deg); }
+    .photo-front, .photo-back {
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      border-radius: 20px; border: 3px solid var(--sakura);
+      box-shadow: 0 0 40px rgba(255,183,197,0.4);
+    }
+    .photo-front img, .photo-back img {
+      width: 100%; height: 100%; object-fit: contain; border-radius: 17px; background: #000;
+    }
+    .photo-back { transform: rotateY(180deg); background: linear-gradient(135deg, var(--sakura), var(--sakura-dark)); 
+      display: flex; justify-content: center; align-items: center; font-family: 'Great Vibes', cursive; font-size: 40px; color: #fff;
+    }
+    .tap-hint {
+      position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; color: var(--sakura); opacity: 0.8; animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:0.8} 50%{opacity:0.3} }
+    
+    .slide-content {
+      position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+      z-index: 3; width: 90%; max-width: 400px;
+      background: rgba(10,10,10,0.9); padding: 20px; border-radius: 15px; 
+      border: 1px solid rgba(255,183,197,0.3); backdrop-filter: blur(10px);
+    }
+    .slide-heading { font-family: 'Great Vibes', cursive; font-size: 36px; color: var(--sakura); margin-bottom: 10px; }
+    .couple-name { font-family: 'Great Vibes', cursive; font-size: 30px; color: var(--sakura); margin: 8px 0; }
+    .text-content { font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
+    
+    .ayat-arab { 
+      font-family: 'Amiri', serif; font-size: 18px; line-height: 2; 
+      color: var(--sakura); margin-bottom: 10px; direction: rtl;
+    }
+    .ayat-arti { font-size: 11px; font-style: italic; line-height: 1.5; opacity: 0.9; }
+    
+    .venue-box { background: rgba(255,183,197,0.1); padding: 12px; border-radius: 10px; margin: 10px 0; border: 1px solid rgba(255,183,197,0.3); }
+    .venue-title { font-weight: 600; color: var(--sakura); margin-bottom: 6px; display: block; font-size: 14px; }
+    .btn-maps {
+      display: inline-block; margin-top: 8px; padding: 8px 16px; 
+      background: linear-gradient(45deg, var(--sakura), var(--sakura-dark)); 
+      color: #fff; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 12px;
+    }
+    
+    .swiper-pagination { bottom: 15px !important; }
+    .swiper-pagination-bullet { width: 8px; height: 8px; background: #fff; opacity: 0.3; }
+    .swiper-pagination-bullet-active { background: var(--sakura); opacity: 1; }
+    
+    .music-btn {
+      position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(10,10,10,0.8); color: var(--sakura); border: 2px solid var(--sakura); font-size: 16px;
+      cursor: pointer; z-index: 999; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(10px);
+    }
+ /* WATERMARK LU */
+    .watermark-ads-center {
+      text-align: center; padding: 12px 10px; font-size: 11px; font-weight: 600; color: #FFD700;
+      background: rgba(0, 0, 0, 0.7); letter-spacing: 1px; position: fixed; bottom: 0; width: 100%; z-index: 998;
+    }
+    .watermark-ads-center a { color:#FFD700; text-decoration:none; font-weight:700; }
+    .music-btn.playing { animation: spin 3s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- FRAME SAKURA KANAN KIRI -->
+  <div class="sakura-left"></div>
+  <div class="sakura-right"></div>
+
+  <div class="cover" id="cover">
+    <img src="./cover.webp" class="cover-img" alt="Cover">
+    <div class="cover-content">
+      <div class="subtitle">THE WEDDING OF</div>
+      <h1 class="title">Afrizal & Ayu</h1>
+      <div class="date">11 . 07 . 2026</div>
+      <button class="btn-open" onclick="openInvitation()">
+        <i class="fas fa-heart"></i> Buka Undangan
+      </button>
+    </div>
+  </div>
+
+  <div class="main" id="main">
+    <div class="swiper main-swiper">
+      <div class="swiper-wrapper">
+        
+        <!-- SLIDE 1: AYAT QURAN -->
+        <div class="swiper-slide">
+          <div class="photo-3d" onclick="this.classList.toggle('flipped')">
+            <div class="photo-front">
+              <img src="./bg1.webp" alt="Foto 1">
+            </div>
+            <div class="photo-back">Afrizal & Ayu</div>
+            <div class="tap-hint">Tap foto untuk memutar</div>
+          </div>
+          <div class="slide-content">
+            <div class="slide-heading">Q.S Ar-Rum: 21</div>
+            <p class="ayat-arab">
+              وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+            </p>
+            <p class="ayat-arti">
+              "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+            </p>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: MEMPELAI -->
+        <div class="swiper-slide">
+          <div class="photo-3d" onclick="this.classList.toggle('flipped')">
+            <div class="photo-front">
+              <img src="./bg2.webp" alt="Foto Mempelai">
+            </div>
+            <div class="photo-back">11 Juli 2026</div>
+            <div class="tap-hint">Tap foto untuk memutar</div>
+          </div>
+          <div class="slide-content">
+            <div class="slide-heading">The Wedding</div>
+            <div class="couple-name">Afrizal & Ayu Julita</div>
+            <p class="text-content">
+              <strong>Putra dari</strong> Bapak Almarhum Nanung & Ibu Almarhumah ayuning<br>
+              <strong>Putri dari</strong> Bapak Amhar & Ibu Risnawati
+            </p>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: AKAD -->
+        <div class="swiper-slide">
+          <div class="photo-3d" onclick="this.classList.toggle('flipped')">
+            <div class="photo-front">
+              <img src="./bg3.webp" class="slide-bg" alt="Foto 3">
+            </div>
+            <div class="photo-back">Akad Nikah</div>
+            <div class="tap-hint">Tap foto untuk memutar</div>
+          </div>
+          <div class="slide-content">
+            <div class="slide-heading">Akad Nikah</div>
+            <div class="venue-box">
+              <span class="venue-title"><i class="fas fa-calendar-alt"></i> Sabtu, 11 Juli 2026</span>
+              <p class="text-content">
+                Pukul 08:00 WIB - Selesai<br><br>
+                <i class="fas fa-map-marker-alt"></i> <strong>Masjid Agung Palembang</strong><br>
+                Jl. Jend. Sudirman No.1
+              </p>
+              <a href="https://maps.google.com/?q=Masjid+Agung+Palembang" target="_blank" class="btn-maps">
+                <i class="fas fa-directions"></i> Buka Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: RESEPSI -->
+        <div class="swiper-slide">
+          <div class="photo-3d" onclick="this.classList.toggle('flipped')">
+            <div class="photo-front">
+              <img src="./bg4.webp" alt="Foto 4">
+            </div>
+            <div class="photo-back">Resepsi</div>
+            <div class="tap-hint">Tap foto untuk memutar</div>
+          </div>
+          <div class="slide-content">
+            <div class="slide-heading">Resepsi</div>
+            <div class="venue-box">
+              <span class="venue-title"><i class="fas fa-calendar-alt"></i> Sabtu, 11 Juli 2026</span>
+              <p class="text-content">
+                Pukul 11:00 - 14:00 WIB<br><br>
+                <i class="fas fa-map-marker-alt"></i> <strong>Gedung Serbaguna</strong><br>
+                Jl. Angkatan 45, Palembang
+              </p>
+              <a href="https://maps.google.com/?q=Gedung+Serbaguna+Palembang" target="_blank" class="btn-maps">
+                <i class="fas fa-directions"></i> Buka Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <i class="fas fa-music"></i>
+  </button>
+  <audio id="bgMusic" loop>
+    <source src="./lagu.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- WATERMARK LU MIN -->
+  <div class="watermark-ads-center">
+    ⚡ ADS Creative | 
+    <a href="https://wa.me/6285273150178?text=Halo%20min,%20mau%20order%20undangan%20digital" target="_blank">
+       Order WA: 0852-7315-0178
+    </a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    let swiper; let musicPlayed = false;
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function openInvitation() {
+      document.getElementById('cover').classList.add('hide');
+      document.getElementById('main').classList.add('active');
+      playMusic(); initSwiper();
+    }
+
+    function initSwiper() {
+      swiper = new Swiper('.main-swiper', {
+        direction: 'horizontal', loop: true,
+        autoplay: { delay: 6000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        effect: 'slide', speed: 800,
+      });
+    }
+
+    function playMusic() {
+      if (!musicPlayed) {
+        music.play().then(() => {
+          musicPlayed = true; musicBtn.classList.add('playing');
+          musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch(e => {});
+      }
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play(); musicBtn.classList.add('playing');
+        musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      } else {
+        music.pause(); musicBtn.classList.remove('playing');
+        musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+      }
+    }
+  </script>
+</body>
+</html>
